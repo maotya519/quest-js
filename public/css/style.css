@@ -1,0 +1,12 @@
+.sub-command-magics {
+    display: none;
+}
+.sub-command-items {
+    display: none;
+}
+.showMagics {
+    display: block;
+}
+.showItems {
+    display: block;
+}
