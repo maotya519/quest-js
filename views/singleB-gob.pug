@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+html(lang="ja")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="../public/css/single-mode.css")
+        title QUEST
+    body
+        .command-container
+            .command-area
+                ul.sub-command-magics
+                    li.sub-command-magic.fire(data-text="ファイア") ファイア
+                    li.sub-command-magic.thunder(data-text="サンダー") サンダー
+                    li.sub-command-magic.quake(data-text="クエイク") クエイク
+                    li.sub-command-magic.recovery(data-text="ホイミ") ホイミ
+                ul.sub-command-items
+                    li.sub-command-item.herb(data-text="やくそう") やくそう
+                    li.sub-command-item.stone(data-text="石ころ") いしころ
+                    li.sub-command-item.medicine(data-text="秘薬") ひやく
+            .command-area
+                ul.command-list
+                    li.command.attack(data-text="攻撃") こうげき
+                    li.command.magic(data-text="魔法") まほう
+                    li.command.tool(data-text="道具") どうぐ
+                    li.command.run(data-text="逃げる") にげる
+        script(src="../public/js/singleB-gob.js"  type="module")

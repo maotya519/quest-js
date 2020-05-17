@@ -1,37 +1,4 @@
 body {
-    background: #333;
-    color: #ddd;
-    margin: 0;
-}
-ul {
-    list-style: none;
-}
-.command-container {
-    display: flex;
-    width: 100%;
-    height: 30%;
-    position: fixed;
-    bottom: 0;
-}
-.command-area {
-    width: 50%;
-    border: 1px solid #ddd;
+    background: #ddd;
 
-}
-ul > li {
-    font-weight: bold;
-    font-size: 1.4rem;
-    padding: 0.5rem 0;
-}
-.sub-command-magics {
-    display: none;
-}
-.sub-command-items {
-    display: none;
-}
-.showMagics {
-    display: block;
-}
-.showItems {
-    display: block;
 }
