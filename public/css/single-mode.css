@@ -63,6 +63,11 @@ ul > li {
 }
 .mon-container {
     text-align: center;
+
+}
+.mon-img {
+    width: 50%;
+    height: 10rem;
 }
 .modal {
     display: none;

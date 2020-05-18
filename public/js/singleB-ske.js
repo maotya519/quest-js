@@ -166,7 +166,6 @@ document.querySelector('.fire').addEventListener('click', (e)=> {
     brave_atk = Math.floor(Math.random() * 200 );
     one.innerHTML = "メラを　となえた！";
     two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
-
     console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
     noneTouch();
     skelton_atk = skelton.attack;
