@@ -1,21 +1,34 @@
 import { Monster, Brave } from './util.js';
-let brave_atk;
-let golem_atk;
-let res;
-let recover;
+let brave_atk,golem_atk,res,recover,
+    hp = document.querySelector(".hp"),
+    mp = document.querySelector(".mp"),
+    one = document.querySelector('.one-tx'),
+    two = document.querySelector('.two-tx'),
+    three = document.querySelector('.three-tx');
+let msg = document.querySelector('.status-tx');
+
 console.log("ゴーレム");
 
-let golem = new Monster( 'golem', 300 );
-let user = new Brave( 500 , 40 );
-
+let golem = new Monster( 'ゴーレム', 300 );
+let user = new Brave( '勇者' , 500 , 40 );
+let name = document.querySelector('.name');
+name.innerHTML = user.name;
+hp.innerHTML = user.physical;
+mp.innerHTML = user.mp;
+document.querySelector('.mon-name-tx').innerHTML = golem.name;
 Monster.prototype.remainHp = function( brave_atk ) {
     while ( golem.physical > 0 ) {
         return golem.physical -= brave_atk;
     }
 }
 Monster.prototype.attackTheBrave = function()  {
-    console.log( `モンスターから${ golem_atk }のダメージ`);
-    console.log(`勇者の残りの体力${user.remainHp(golem_atk)}`);
+    one.innerHTML = `モンスターから${ golem_atk }のダメージを受けた`;
+    two.innerHTML = '';
+    hp.innerHTML = user.remainHp(golem_atk);
+}
+function noneTx() {
+    one.innerHTML = "";
+    two.innerHTML = "";
 }
 Brave.prototype.remainHp = function ( golem_atk ) {
     while ( user.physical > 0 ) {
@@ -27,23 +40,24 @@ Brave.prototype.attack = function() {
     // 勇者の攻撃力(打撃)
     brave_atk = Math.floor(Math.random() * 30 );
         if ( brave_atk >= 25 ) {
-            console.log( `かいしんの　いちげき！
-                        　${ golem.name }に${ brave_atk }のダメージ`);
+            one.innerHTML = 'かいしんの　いちげき！！';
+            two.innerHTML = golem.name + "に" + brave_atk + "の" + "ダメージ！！";
+
             console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
-            setTimeout( golem.attackTheBrave , 5000 );
+            setTimeout( golem.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
 
         } else if ( brave_atk >= 1 ) {
-            console.log( `ゆうしゃの　こうげき！
-                        　${golem.name}に${ brave_atk }のダメージ`);
+            one.innerHTML = 'ゆうしゃ　の　こうげき！';
+            two.innerHTML = golem.name + "に" + brave_atk + "の" + "ダメージ！！";
             console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
-            setTimeout( golem.attackTheBrave , 5000 );
-
+            setTimeout( golem.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
         } else {
-            console.log( `ミス！
-                        　${golem.name}に　ダメージを　あたえられない！！`);
-
-                        setTimeout( golem.attackTheBrave , 5000 );
-
+            one.innerHTML = 'ミス！';
+            two.innerHTML = golem.name + "に　ダメージを　あたえられない！";
+            setTimeout( golem.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
         }
     }
 
@@ -113,7 +127,15 @@ function switchItemsCmd() {
         sub_item_cmd.classList.add("showItems");
     }
 }
+
+
+
 //イベント処理 --------------------------------
+document.querySelector('.btn-area').addEventListener('click', (e)=> {
+
+    let modal = document.querySelector('.modal');
+    modal.style.display = 'none';
+},{once: true });
 
 document.querySelector(".cmd-list").addEventListener("click" ,e => {
     golem_atk = golem.attack;
@@ -143,18 +165,21 @@ document.querySelector(".cmd-list").addEventListener("click" ,e => {
 //魔法
 document.querySelector('.fire').addEventListener('click', (e)=> {
     res = confirm("ファイアの説明が入ります");
-    console.log( res );
     if( res ) {
         if ( e.target.parentElement.classList.contains('showMagics')) {
             e.target.parentElement.classList.remove('showMagics');
         }
     //魔法（ファイア）
     brave_atk = Math.floor(Math.random() * 200 );
-    console.log( `ファイア ${ brave_atk } のダメージ`);
+    one.innerHTML = "メラを　となえた！";
+    two.innerHTML = golem.name + "に" + brave_atk + "の" + "ダメージ！！";
+
     console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
     noneTouch();
     golem_atk = golem.attack;
-    setTimeout( golem.attackTheBrave , 5000 );
+    setTimeout( golem.attackTheBrave , 3000 );
+    setTimeout( noneTx, 5000 );
+
     }
     else {
         console.log('キャンセルがクリックされました');
@@ -171,11 +196,15 @@ document.querySelector('.thunder').addEventListener('click', (e)=> {
         }
         //魔法（サンダー）
         brave_atk = Math.floor(Math.random() * 200 );
-        console.log( `サンダー ${ brave_atk } のダメージ`);
+        one.innerHTML = "サンダーを　となえた！";
+        two.innerHTML = golem.name + "に" + brave_atk + "の" + "ダメージ！！";
+
         console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
         noneTouch();
         golem_atk = golem.attack;
-        setTimeout( golem.attackTheBrave , 5000 );
+        setTimeout( golem.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -192,11 +221,15 @@ document.querySelector('.quake').addEventListener('click', (e)=> {
             }
             //魔法（クエイク）
             brave_atk = Math.floor(Math.random() * 200 );
-            console.log( `クエイク ${ brave_atk } のダメージ`);
+            one.innerHTML = "クエイクを　となえた！";
+            two.innerHTML = golem.name + "に" + brave_atk + "の" + "ダメージ！！";
+
             console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
             noneTouch();
             golem_atk = golem.attack;
-            setTimeout( golem.attackTheBrave , 5000 );
+            setTimeout( golem.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -213,11 +246,17 @@ document.querySelector('.recovery').addEventListener('click', (e)=> {
         }
         // 魔法（回復）
         recover = Math.floor(Math.random() * 50 );
+        one.innerHTML = "ホイミを　となえた！";
+        two.innerHTML = "キズが回復した！";
+
         user.physical += recover;
-        console.log( user.physical );
+        // console.log( user.physical );
+        hp.innerHTML = user.physical;
         noneTouch();
         golem_atk = golem.attack;
-        setTimeout( golem.attackTheBrave , 5000 );
+        setTimeout( golem.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -237,12 +276,16 @@ document.querySelector('.herb').addEventListener('click', (e)=> {
         }
         // 道具（回復）
         recover = Math.floor(Math.random() * 100 );
+        one.innerHTML = "やくそうを　つかった！";
+        two.innerHTML = "少しキズが回復した！";
 
         user.physical += recover;
         console.log( user.physical );
         noneTouch();
         golem_atk = golem.attack;
-        setTimeout( golem.attackTheBrave , 5000 );
+        setTimeout( golem.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -260,11 +303,15 @@ document.querySelector('.stone').addEventListener('click', (e)=> {
         }
         //道具（いしつぶて）
         brave_atk = Math.floor(Math.random() * 20 );
-        console.log( `いしつぶ ${ brave_atk } のダメージ`);
+        one.innerHTML = golem.name + "いしつぶをぶつけた！";
+        two.innerHTML = brave_atk + "のダメージを　あたえた！";
+
         console.log(`モンスターの残りの体力 ${golem.remainHp(brave_atk)}`);
         noneTouch();
         golem_atk = golem.attack;
-        setTimeout( golem.attackTheBrave , 5000 );
+        setTimeout( golem.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -282,11 +329,16 @@ document.querySelector('.medicine').addEventListener('click', (e)=> {
         }
         // 道具（回復）
         recover = Math.floor(Math.random() * 100 );
+        one.innerHTML = "ひやくを　つかった！";
+        two.innerHTML = "キズが回復した！";
+
         user.physical += recover;
         console.log(user.physical );
         noneTouch();
         golem_atk = golem.attack;
-        setTimeout( golem.attackTheBrave , 5000 );
+        setTimeout( golem.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
     }
     else {
         console.log('キャンセルがクリックされました');

@@ -1,15 +1,20 @@
 import { Monster, Brave } from './util.js';
-let brave_atk;
-let skelton_atk;
-let res;
-let recover;
+let brave_atk,skelton_atk,res,recover,
+    hp = document.querySelector(".hp"),
+    mp = document.querySelector(".mp"),
+    one = document.querySelector('.one-tx'),
+    two = document.querySelector('.two-tx'),
+    three = document.querySelector('.three-tx');
+let msg = document.querySelector('.status-tx');
+let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
 console.log("スケルトン");
 
-let skelton = new Monster( 'skelton', 300 );
-let user = new Brave( 500 , 40 );
-
-document.querySelector(".hp").innerHTML = user.physical;
-document.querySelector(".mp").innerHTML = user.mp;
+let skelton = new Monster( 'スケルトン', 300 );
+let user = new Brave( '勇者', 500 , 40 );
+let name = document.querySelector('.name');
+name.innerHTML = user.name;
+hp.innerHTML = user.physical;
+mp.innerHTML = user.mp;
 document.querySelector('.mon-name-tx').innerHTML = skelton.name;
 Monster.prototype.remainHp = function( brave_atk ) {
     while ( skelton.physical > 0 ) {
@@ -17,8 +22,13 @@ Monster.prototype.remainHp = function( brave_atk ) {
     }
 }
 Monster.prototype.attackTheBrave = function()  {
-    console.log( `モンスターから${ skelton_atk }のダメージ`);
-    console.log(`勇者の残りの体力${user.remainHp(skelton_atk)}`);
+    one.innerHTML = `モンスターから${ skelton_atk }のダメージを受けた`;
+    two.innerHTML = '';
+    hp.innerHTML = user.remainHp(skelton_atk);
+}
+function noneTx() {
+    one.innerHTML = "";
+    two.innerHTML = "";
 }
 Brave.prototype.remainHp = function ( skelton_atk ) {
     while ( user.physical > 0 ) {
@@ -30,23 +40,24 @@ Brave.prototype.attack = function() {
     // 勇者の攻撃力(打撃)
     brave_atk = Math.floor(Math.random() * 30 );
         if ( brave_atk >= 25 ) {
-            console.log( `かいしんの　いちげき！
-                        　${ skelton.name }に${ brave_atk }のダメージ`);
+            one.innerHTML = 'かいしんの　いちげき！！';
+            two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
+
             console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
-            setTimeout( skelton.attackTheBrave , 5000 );
+            setTimeout( skelton.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
 
         } else if ( brave_atk >= 1 ) {
-            console.log( `ゆうしゃの　こうげき！
-                        　${skelton.name}に${ brave_atk }のダメージ`);
+            one.innerHTML = 'ゆうしゃ　の　こうげき！';
+            two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
             console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
-            setTimeout( skelton.attackTheBrave , 5000 );
-
+            setTimeout( skelton.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
         } else {
-            console.log( `ミス！
-                        　${skelton.name}に　ダメージを　あたえられない！！`);
-
-                        setTimeout( skelton.attackTheBrave , 5000 );
-
+            one.innerHTML = 'ミス！';
+            two.innerHTML = skelton.name + "に　ダメージを　あたえられない！";
+            setTimeout( skelton.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
         }
     }
 
@@ -76,7 +87,7 @@ function switchOtherThanMagic() {
             }
             if ( cmd.dataset.text === "逃げる" ) {
                 let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
-                sub_magic_cmd.classList.remove("showMagics");
+                sub_magics_cmd.classList.remove("showMagics");
             }
     },false);
     });
@@ -85,18 +96,9 @@ function switchOtherThanMagic() {
 function switchOtherThanItem() {
     document.querySelectorAll('.cmd').forEach( cmd => {
         cmd.addEventListener('click', ()=> {
-            if ( cmd.dataset.text === "魔法") {
-                let sub_item_cmd = document.querySelector(".sub-cmd-items");
-                sub_item_cmd.classList.remove("showItems");
-            }
-            if ( cmd.dataset.text === "攻撃") {
-                let sub_item_cmd = document.querySelector(".sub-cmd-items");
-                sub_item_cmd.classList.remove("showItems");
-            }
-            if ( cmd.dataset.text === "逃げる") {
-                let sub_item_cmd = document.querySelector(".sub-cmd-items");
-                sub_item_cmd.classList.remove("showItems");
-            }
+            if ( cmd.dataset.text === "魔法") { sub_item_cmd.classList.remove("showItems"); }
+            if ( cmd.dataset.text === "攻撃") { sub_item_cmd.classList.remove("showItems"); }
+            if ( cmd.dataset.text === "逃げる") { sub_item_cmd.classList.remove("showItems"); }
         },false);
     });
 }
@@ -123,37 +125,10 @@ function switchItemsCmd() {
 
 document.querySelector('.btn-area').addEventListener('click', (e)=> {
 
-        //createForm
-        let input = document.createElement('input'),
-        form = document.querySelector('.form-area'),
-        p = document.createElement('p');
-        input.setAttribute('placeholder', '10以内でご入力をお願いします。');
-        input.setAttribute('type', 'text');
-        input.setAttribute('maxlength', 10 );
-        input.className = 'inputName';
-
-        form.appendChild( input );
-        form.appendChild( p );
-        p.className = 'alertName';
-        let changeNameTitle = document.querySelector('.modal-title'),
-        rule_area = document.querySelector('.rule-area');
-        rule_area.style.display = 'none';
-        changeNameTitle.innerHTML = '名前の入力';
-        e.target.parentElement.className = 'checkForm';
-        e.target.innerHTML = '決定';
-        document.querySelector('.checkForm').addEventListener('click', ()=> {
-            let inputName = document.querySelector('.inputName').value.trim(),
-                altName = document.querySelector('.alertName');
-            if ( inputName.length >= 1 && inputName.length <= 10 ) {
-                document.querySelector('.modal').style.display = 'none';
-                document.querySelector('.name').innerHTML = inputName;
-            } else {
-                altName.style.color ="rgb(134, 21, 21)";
-                altName.innerHTML = 'お名前のご入力をお願いします。';
-                return;
-            }
-        },false);
+    let modal = document.querySelector('.modal');
+    modal.style.display = 'none';
 },{once: true });
+
 
 document.querySelector(".cmd-list").addEventListener("click" ,e => {
     skelton_atk = skelton.attack;
@@ -183,18 +158,21 @@ document.querySelector(".cmd-list").addEventListener("click" ,e => {
 //魔法
 document.querySelector('.fire').addEventListener('click', (e)=> {
     res = confirm("ファイアの説明が入ります");
-    console.log( res );
     if( res ) {
         if ( e.target.parentElement.classList.contains('showMagics')) {
             e.target.parentElement.classList.remove('showMagics');
         }
     //魔法（ファイア）
     brave_atk = Math.floor(Math.random() * 200 );
-    console.log( `ファイア ${ brave_atk } のダメージ`);
+    one.innerHTML = "メラを　となえた！";
+    two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
+
     console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
     noneTouch();
     skelton_atk = skelton.attack;
-    setTimeout( skelton.attackTheBrave , 5000 );
+    setTimeout( skelton.attackTheBrave , 3000 );
+    setTimeout( noneTx, 5000 );
+
     }
     else {
         console.log('キャンセルがクリックされました');
@@ -211,11 +189,15 @@ document.querySelector('.thunder').addEventListener('click', (e)=> {
         }
         //魔法（サンダー）
         brave_atk = Math.floor(Math.random() * 200 );
-        console.log( `サンダー ${ brave_atk } のダメージ`);
+        one.innerHTML = "サンダーを　となえた！";
+        two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
+
         console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
         noneTouch();
         skelton_atk = skelton.attack;
-        setTimeout( skelton.attackTheBrave , 5000 );
+        setTimeout( skelton.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -232,11 +214,15 @@ document.querySelector('.quake').addEventListener('click', (e)=> {
             }
             //魔法（クエイク）
             brave_atk = Math.floor(Math.random() * 200 );
-            console.log( `クエイク ${ brave_atk } のダメージ`);
+            one.innerHTML = "クエイクを　となえた！";
+            two.innerHTML = skelton.name + "に" + brave_atk + "の" + "ダメージ！！";
+
             console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
             noneTouch();
             skelton_atk = skelton.attack;
-            setTimeout( skelton.attackTheBrave , 5000 );
+            setTimeout( skelton.attackTheBrave , 3000 );
+            setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -253,11 +239,17 @@ document.querySelector('.recovery').addEventListener('click', (e)=> {
         }
         // 魔法（回復）
         recover = Math.floor(Math.random() * 50 );
+        one.innerHTML = "ホイミを　となえた！";
+        two.innerHTML = "キズが回復した！";
+
         user.physical += recover;
-        console.log( user.physical );
+        // console.log( user.physical );
+        hp.innerHTML = user.physical;
         noneTouch();
         skelton_atk = skelton.attack;
-        setTimeout( skelton.attackTheBrave , 5000 );
+        setTimeout( skelton.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -277,12 +269,16 @@ document.querySelector('.herb').addEventListener('click', (e)=> {
         }
         // 道具（回復）
         recover = Math.floor(Math.random() * 100 );
+        one.innerHTML = "やくそうを　つかった！";
+        two.innerHTML = "少しキズが回復した！";
 
         user.physical += recover;
         console.log( user.physical );
         noneTouch();
         skelton_atk = skelton.attack;
-        setTimeout( skelton.attackTheBrave , 5000 );
+        setTimeout( skelton.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -300,11 +296,15 @@ document.querySelector('.stone').addEventListener('click', (e)=> {
         }
         //道具（いしつぶて）
         brave_atk = Math.floor(Math.random() * 20 );
-        console.log( `いしつぶ ${ brave_atk } のダメージ`);
+        one.innerHTML = skelton.name + "いしつぶをぶつけた！";
+        two.innerHTML = brave_atk + "のダメージを　あたえた！";
+
         console.log(`モンスターの残りの体力 ${skelton.remainHp(brave_atk)}`);
         noneTouch();
         skelton_atk = skelton.attack;
-        setTimeout( skelton.attackTheBrave , 5000 );
+        setTimeout( skelton.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
 
     }
     else {
@@ -322,11 +322,16 @@ document.querySelector('.medicine').addEventListener('click', (e)=> {
         }
         // 道具（回復）
         recover = Math.floor(Math.random() * 100 );
+        one.innerHTML = "ひやくを　つかった！";
+        two.innerHTML = "キズが回復した！";
+
         user.physical += recover;
         console.log(user.physical );
         noneTouch();
         skelton_atk = skelton.attack;
-        setTimeout( skelton.attackTheBrave , 5000 );
+        setTimeout( skelton.attackTheBrave , 3000 );
+        setTimeout( noneTx, 5000 );
+
     }
     else {
         console.log('キャンセルがクリックされました');
