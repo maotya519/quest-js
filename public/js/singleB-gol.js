@@ -49,7 +49,7 @@ Brave.prototype.attack = function() {
 
 
 function noneTouch() {
-    document.querySelectorAll(".command").forEach( cmd => {
+    document.querySelectorAll(".cmd").forEach( cmd => {
         cmd.style.pointerEvents = "none";
         console.log("5秒間操作不可");
         setTimeout( function() {
@@ -61,18 +61,18 @@ function noneTouch() {
 
 //Switch when you press something other than magic
 function switchOtherThanMagic() {
-    document.querySelectorAll('.command').forEach( cmd => {
+    document.querySelectorAll('.cmd').forEach( cmd => {
         cmd.addEventListener('click', ()=> {
             if ( cmd.dataset.text === "道具" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magics_cmd.classList.remove("showMagics");
             }
             if ( cmd.dataset.text === "攻撃" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magics_cmd.classList.remove("showMagics");
             }
             if ( cmd.dataset.text === "逃げる" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magic_cmd.classList.remove("showMagics");
             }
     },false);
@@ -80,25 +80,25 @@ function switchOtherThanMagic() {
 }
 //Switch when you press something other than item
 function switchOtherThanItem() {
-    document.querySelectorAll('.command').forEach( cmd => {
+    document.querySelectorAll('.cmd').forEach( cmd => {
         cmd.addEventListener('click', ()=> {
             if ( cmd.dataset.text === "魔法") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
             if ( cmd.dataset.text === "攻撃") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
             if ( cmd.dataset.text === "逃げる") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
         },false);
     });
 }
 function switchMagicCmd() {
-    let sub_magics_cmd = document.querySelector(".sub-command-magics");
+    let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
     if ( sub_magics_cmd.classList.contains("showMagics")) {
         sub_magics_cmd.classList.remove("showMagics");
     } else {
@@ -106,7 +106,7 @@ function switchMagicCmd() {
     }
 }
 function switchItemsCmd() {
-    let sub_item_cmd = document.querySelector(".sub-command-items");
+    let sub_item_cmd = document.querySelector(".sub-cmd-items");
     if ( sub_item_cmd.classList.contains("showItems")) {
         sub_item_cmd.classList.remove("showItems");
     } else {
@@ -115,7 +115,7 @@ function switchItemsCmd() {
 }
 //イベント処理 --------------------------------
 
-document.querySelector(".command-list").addEventListener("click" ,e => {
+document.querySelector(".cmd-list").addEventListener("click" ,e => {
     golem_atk = golem.attack;
     if ( e.target.textContent === "こうげき" ) {
         user.attack();
@@ -230,7 +230,7 @@ document.querySelector('.recovery').addEventListener('click', (e)=> {
 
 //道具
 document.querySelector('.herb').addEventListener('click', (e)=> {
-    res = confirm("薬草に関しての説明が入ります。");
+    res = confirm("一つ所有しています。薬草に関しての説明が入ります。");
     if( res ) {
         if ( e.target.parentElement.classList.contains('showItems')) {
             e.target.parentElement.classList.remove('showItems');
@@ -250,9 +250,10 @@ document.querySelector('.herb').addEventListener('click', (e)=> {
         return;
     }
 
-},false);
+},{once: true });
+
 document.querySelector('.stone').addEventListener('click', (e)=> {
-    res = confirm(" いしつぶについての説明が入ります" );
+    res = confirm(" 一つ所有していますいしつぶについての説明が入ります" );
     if( res ) {
         if ( e.target.parentElement.classList.contains('showItems')) {
             e.target.parentElement.classList.remove('showItems');
@@ -271,7 +272,8 @@ document.querySelector('.stone').addEventListener('click', (e)=> {
         return;
     }
 
-},false);
+},{once: true });
+
 document.querySelector('.medicine').addEventListener('click', (e)=> {
     res = confirm("秘薬についての説明が入ります。");
     if( res ) {
@@ -291,4 +293,4 @@ document.querySelector('.medicine').addEventListener('click', (e)=> {
         return;
     }
 
-},false);
+},{once: true });

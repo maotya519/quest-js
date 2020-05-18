@@ -1,25 +1,25 @@
 import { Monster, Brave } from './util.js';
 let brave_atk;
-let goblin_atk;
+let ameba_atk;
 let res;
 let recover;
-console.log("ゴブリン");
+console.log("アメーバ");
 
-let goblin = new Monster( 'goblin', 300 );
+let ameba = new Monster( 'ameba', 300 );
 let user = new Brave( 500 , 40 );
 
 Monster.prototype.remainHp = function( brave_atk ) {
-    while ( goblin.physical > 0 ) {
-        return goblin.physical -= brave_atk;
+    while ( ameba.physical > 0 ) {
+        return ameba.physical -= brave_atk;
     }
 }
 Monster.prototype.attackTheBrave = function()  {
-    console.log( `モンスターから${ goblin_atk }のダメージ`);
-    console.log(`勇者の残りの体力${user.remainHp(goblin_atk)}`);
+    console.log( `モンスターから${ ameba_atk }のダメージ`);
+    console.log(`勇者の残りの体力${user.remainHp(ameba_atk)}`);
 }
-Brave.prototype.remainHp = function ( goblin_atk ) {
+Brave.prototype.remainHp = function ( ameba_atk ) {
     while ( user.physical > 0 ) {
-        return user.physical -= goblin_atk;
+        return user.physical -= ameba_atk;
     }
 }
 
@@ -28,28 +28,28 @@ Brave.prototype.attack = function() {
     brave_atk = Math.floor(Math.random() * 30 );
         if ( brave_atk >= 25 ) {
             console.log( `かいしんの　いちげき！
-                        　${ goblin.name }に${ brave_atk }のダメージ`);
-            console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
-            setTimeout( goblin.attackTheBrave , 5000 );
+                        　${ ameba.name }に${ brave_atk }のダメージ`);
+            console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
+            setTimeout( ameba.attackTheBrave , 5000 );
 
         } else if ( brave_atk >= 1 ) {
             console.log( `ゆうしゃの　こうげき！
-                        　${goblin.name}に${ brave_atk }のダメージ`);
-            console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
-            setTimeout( goblin.attackTheBrave , 5000 );
+                        　${ameba.name}に${ brave_atk }のダメージ`);
+            console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
+            setTimeout( ameba.attackTheBrave , 5000 );
 
         } else {
             console.log( `ミス！
-                        　${goblin.name}に　ダメージを　あたえられない！！`);
+                        　${ameba.name}に　ダメージを　あたえられない！！`);
 
-                        setTimeout( goblin.attackTheBrave , 5000 );
+                        setTimeout( ameba.attackTheBrave , 5000 );
 
         }
     }
 
 
 function noneTouch() {
-    document.querySelectorAll(".command").forEach( cmd => {
+    document.querySelectorAll(".cmd").forEach( cmd => {
         cmd.style.pointerEvents = "none";
         console.log("5秒間操作不可");
         setTimeout( function() {
@@ -61,18 +61,18 @@ function noneTouch() {
 
 //Switch when you press something other than magic
 function switchOtherThanMagic() {
-    document.querySelectorAll('.command').forEach( cmd => {
+    document.querySelectorAll('.cmd').forEach( cmd => {
         cmd.addEventListener('click', ()=> {
             if ( cmd.dataset.text === "道具" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magics_cmd.classList.remove("showMagics");
             }
             if ( cmd.dataset.text === "攻撃" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magics_cmd.classList.remove("showMagics");
             }
             if ( cmd.dataset.text === "逃げる" ) {
-                let sub_magics_cmd = document.querySelector(".sub-command-magics");
+                let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
                 sub_magic_cmd.classList.remove("showMagics");
             }
     },false);
@@ -80,25 +80,25 @@ function switchOtherThanMagic() {
 }
 //Switch when you press something other than item
 function switchOtherThanItem() {
-    document.querySelectorAll('.command').forEach( cmd => {
+    document.querySelectorAll('.cmd').forEach( cmd => {
         cmd.addEventListener('click', ()=> {
             if ( cmd.dataset.text === "魔法") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
             if ( cmd.dataset.text === "攻撃") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
             if ( cmd.dataset.text === "逃げる") {
-                let sub_item_cmd = document.querySelector(".sub-command-items");
+                let sub_item_cmd = document.querySelector(".sub-cmd-items");
                 sub_item_cmd.classList.remove("showItems");
             }
         },false);
     });
 }
 function switchMagicCmd() {
-    let sub_magics_cmd = document.querySelector(".sub-command-magics");
+    let sub_magics_cmd = document.querySelector(".sub-cmd-magics");
     if ( sub_magics_cmd.classList.contains("showMagics")) {
         sub_magics_cmd.classList.remove("showMagics");
     } else {
@@ -106,7 +106,7 @@ function switchMagicCmd() {
     }
 }
 function switchItemsCmd() {
-    let sub_item_cmd = document.querySelector(".sub-command-items");
+    let sub_item_cmd = document.querySelector(".sub-cmd-items");
     if ( sub_item_cmd.classList.contains("showItems")) {
         sub_item_cmd.classList.remove("showItems");
     } else {
@@ -115,8 +115,8 @@ function switchItemsCmd() {
 }
 //イベント処理 --------------------------------
 
-document.querySelector(".command-list").addEventListener("click" ,e => {
-    goblin_atk = goblin.attack;
+document.querySelector(".cmd-list").addEventListener("click" ,e => {
+    ameba_atk = ameba.attack;
     if ( e.target.textContent === "こうげき" ) {
         user.attack();
         noneTouch();
@@ -133,8 +133,8 @@ document.querySelector(".command-list").addEventListener("click" ,e => {
     if ( e.target.textContent === "にげる" ) {
         console.log( "にげる" );
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
     }
 },false);
 
@@ -151,10 +151,10 @@ document.querySelector('.fire').addEventListener('click', (e)=> {
     //魔法（ファイア）
     brave_atk = Math.floor(Math.random() * 200 );
     console.log( `ファイア ${ brave_atk } のダメージ`);
-    console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
+    console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
     noneTouch();
-    goblin_atk = goblin.attack;
-    setTimeout( goblin.attackTheBrave , 5000 );
+    ameba_atk = ameba.attack;
+    setTimeout( ameba.attackTheBrave , 5000 );
     }
     else {
         console.log('キャンセルがクリックされました');
@@ -172,10 +172,10 @@ document.querySelector('.thunder').addEventListener('click', (e)=> {
         //魔法（サンダー）
         brave_atk = Math.floor(Math.random() * 200 );
         console.log( `サンダー ${ brave_atk } のダメージ`);
-        console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
+        console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
 
     }
     else {
@@ -193,10 +193,10 @@ document.querySelector('.quake').addEventListener('click', (e)=> {
             //魔法（クエイク）
             brave_atk = Math.floor(Math.random() * 200 );
             console.log( `クエイク ${ brave_atk } のダメージ`);
-            console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
+            console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
             noneTouch();
-            goblin_atk = goblin.attack;
-            setTimeout( goblin.attackTheBrave , 5000 );
+            ameba_atk = ameba.attack;
+            setTimeout( ameba.attackTheBrave , 5000 );
 
     }
     else {
@@ -216,8 +216,8 @@ document.querySelector('.recovery').addEventListener('click', (e)=> {
         user.physical += recover;
         console.log( user.physical );
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
 
     }
     else {
@@ -230,7 +230,7 @@ document.querySelector('.recovery').addEventListener('click', (e)=> {
 
 //道具
 document.querySelector('.herb').addEventListener('click', (e)=> {
-    res = confirm("薬草に関しての説明が入ります。");
+    res = confirm("一つ所有しています薬草に関しての説明が入ります。");
     if( res ) {
         if ( e.target.parentElement.classList.contains('showItems')) {
             e.target.parentElement.classList.remove('showItems');
@@ -241,8 +241,8 @@ document.querySelector('.herb').addEventListener('click', (e)=> {
         user.physical += recover;
         console.log( user.physical );
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
 
     }
     else {
@@ -250,9 +250,10 @@ document.querySelector('.herb').addEventListener('click', (e)=> {
         return;
     }
 
-},false);
+},{once: true });
+
 document.querySelector('.stone').addEventListener('click', (e)=> {
-    res = confirm(" いしつぶについての説明が入ります" );
+    res = confirm(" 一つ所有していますいしつぶについての説明が入ります" );
     if( res ) {
         if ( e.target.parentElement.classList.contains('showItems')) {
             e.target.parentElement.classList.remove('showItems');
@@ -260,10 +261,10 @@ document.querySelector('.stone').addEventListener('click', (e)=> {
         //道具（いしつぶて）
         brave_atk = Math.floor(Math.random() * 20 );
         console.log( `いしつぶ ${ brave_atk } のダメージ`);
-        console.log(`モンスターの残りの体力 ${goblin.remainHp(brave_atk)}`);
+        console.log(`モンスターの残りの体力 ${ameba.remainHp(brave_atk)}`);
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
 
     }
     else {
@@ -271,9 +272,10 @@ document.querySelector('.stone').addEventListener('click', (e)=> {
         return;
     }
 
-},false);
+},{once: true });
+
 document.querySelector('.medicine').addEventListener('click', (e)=> {
-    res = confirm("秘薬についての説明が入ります。");
+    res = confirm("一つ所有しています秘薬についての説明が入ります。");
     if( res ) {
         if ( e.target.parentElement.classList.contains('showItems')) {
             e.target.parentElement.classList.remove('showItems');
@@ -283,12 +285,12 @@ document.querySelector('.medicine').addEventListener('click', (e)=> {
         user.physical += recover;
         console.log(user.physical );
         noneTouch();
-        goblin_atk = goblin.attack;
-        setTimeout( goblin.attackTheBrave , 5000 );
+        ameba_atk = ameba.attack;
+        setTimeout( ameba.attackTheBrave , 5000 );
     }
     else {
         console.log('キャンセルがクリックされました');
         return;
     }
 
-},false);
+},{once: true });

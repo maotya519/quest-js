@@ -10,14 +10,14 @@ html(lang="ja")
         header
         .status-container
             p.tag    Name:
-                span.info-tx.name
+                span.info-tx.name   Mao
             p.tag    HP:
-                span.info-tx.hp
+                span.info-tx.hp 500
             p.tag    MP:
-                span.info-tx.mp
+                span.info-tx.mp   30
         .mon-container
-            p.mon-name-tx
-            img.mon-img(src="../public/img/monsters/skelton.png", alt="")
+            p.mon-name-tx GOBLIN
+            img.mon-img(src="../public/img/monsters/ameba.png", alt="")
         .msg-container
             p.status-tx
         .cmd-container
@@ -37,17 +37,8 @@ html(lang="ja")
                     li.cmd.magic(data-text="魔法") まほう
                     li.cmd.tool(data-text="道具") どうぐ
                     li.cmd.run(data-text="逃げる") にげる
-        #modal.modal
-            .modal-content
-                .modal-body
-                    h1.modal-title Hello World
-                    form.form-area
-                    .rule-area
-                        ul.rule-list
-                            li.rule-tx ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入りま
-                            li.rule-tx ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入りま
-                            li.rule-tx ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入りま
-                            li.rule-tx ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入りま
-                    .btn-area
-                        .btn-tx 次へ
-        script(src="../public/js/singleB-ske.js"  type="module")
+            //- #modal.modal
+            //-     .modal-content
+            //-         .modal-body
+            //-             h1 Hello World
+        script(src="../public/js/singleB-ameba.js"  type="module")

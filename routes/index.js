@@ -11,8 +11,8 @@ router.get("/singleB-ske", (req, res) => {
 router.get("/singleB-gol", (req, res) => {
     return res.render("singleB-gol");
 });
-router.get("/singleB-gob", (req, res) => {
-    return res.render("singleB-gob");
+router.get("/singleB-ameba", (req, res) => {
+    return res.render("singleB-ameba");
 });
 
 module.exports = router;

@@ -2,36 +2,127 @@ body {
     background: #333;
     color: #ddd;
     margin: 0;
+
 }
-ul {
-    list-style: none;
+header {
+    background: #222;
+    width: 100%;
+    height: 3rem;
 }
-.command-container {
+ul { list-style: none; }
+ul > li {
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
+}
+
+.cmd-container {
     display: flex;
     width: 100%;
     height: 30%;
     position: fixed;
     bottom: 0;
 }
-.command-area {
+.cmd-area {
     width: 50%;
     border: 1px solid #ddd;
 
 }
-ul > li {
+.sub-cmd-magics {
+    display: none;
+}
+.sub-cmd-items { display: none; }
+.showMagics { display: block; }
+.showItems {  display: block; }
+.msg-container {
+    border: 2px solid #ddd;
+    height: 12%;
+    width: 100%;
+    position: absolute;
+    bottom:29%;
+}
+.msg-container > p {
+    text-align: center;
+    font-weight: bold;
+    margin: 0.4rem 0 0 0;
+}
+.status-container {
+    width: 50%;
+    border: 2px solid #ddd;
+}
+.status-container > p{
+    padding : 0 0 0 1rem;
+    margin: 0.4rem 0;
+    font-weight: bold;
+}
+.tag > span {
+    padding: 0 0 0 0.6rem;
+}
+.mon-container {
+    text-align: center;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content{
+    background-color: #ddd;
+    color: #333;
+    width: 90%;
+    height: 64%;
+    margin: 40% auto;
+    text-align: center;
+    }
+
+    .modal-body > .modal-title {
+        padding: 2rem 0 0 0;
+    }
+    .rule-area > .rule-list, .rule-tx {
+        padding: 0.8rem;
+        font-size: 1rem;
+        font-weight: normal;
+    }
+.btn-area {
+    width: 40%;
+    height: 4rem;
+    margin: 0 auto;
+    background: #333;
+    color: #ddd;
+    position: absolute;
+    bottom: 20%;
+    left: 8rem;
+}
+.checkForm {
+    width: 40%;
+    height: 4rem;
+    margin: 0 auto;
+    background: #333;
+    color: #ddd;
+    position: absolute;
+    bottom: 20%;
+    left: 8rem;
+}
+.btn-area > .btn-tx {
+    line-height: 4rem;
     font-weight: bold;
     font-size: 1.4rem;
-    padding: 0.5rem 0;
 }
-.sub-command-magics {
-    display: none;
+.checkForm > .btn-tx {
+    line-height: 4rem;
+    font-weight: bold;
+    font-size: 1.4rem;
+
 }
-.sub-command-items {
-    display: none;
-}
-.showMagics {
-    display: block;
-}
-.showItems {
-    display: block;
+.inputName {
+    font-size: 1.4rem;
+    margin: 2rem 0 0 0;
+    width: 90%;
 }
